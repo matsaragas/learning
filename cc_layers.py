@@ -67,4 +67,57 @@ class CudaConvnetConv2DLayer(object):
      
      
     def reset_params(self): 
+        
+        self.W.set_value(np.random.randn(*self.filter_shape).astype(np.float32) * self.weights_std)
+        
+        if self.untie_biases:
+           self.b.set_value(np.ones(self.get_output_shape()[:3]).astype(np.float32) * self.init_bias_value)
+        else:
+           self.b.set_value(np.ones(self.n_filters).astype(np.float32) * self.init_bias_value)
+           
+    def get_output_shape(self):
+        output_width = (self.input_shape[1] + 2 * self.pad - self.filter_size + self.stride) // self.stride
+        output_height = (self.input_shape[2] + 2 * self.pad - self.filter_size + self.stride) // self.stride
+        output_shape = (self.n_filters, output_width, output_height, self.mb_size)
+        return output_shape
+        
+    def output(self, input=None, dropout_active = True, *args, **kwargs):
+        if input = None:
+            input = self.input_layer.output(dropout_active = dropout_active, *args, **kwargs):
+                
+        if dropout_active and (self.dropour > 0.):
+            retain_prob = 1 - self.dropout
+            mask = layers.srng.binomial(input.shape, p = retain_prob, dtype = 'int32').astype('float32')
+            
+            input = input / retain_prob * mask
+            
+        contiguous_input = gpu_contiguous(input)
+        contiguous_filter = gpu_contiguous(self.W)
+        conved = self.filter_acts_op(contiguous_input, contiguous_filters)
+        
+        if self.untie_biases:
+            conved += self.b.dimshuffle(0,1,2,'x')
+        else:
+            conved += self.b.dimshuffle(0,'x','x','x')
+            
+        return self.nonlinearity(conved)
+        
+
+class CudaConvnetPooling2DLayer(objects):
+    def __init__(self, input_layer, pool_size, stride = None):
+        """
+        pool size is an Integer, not a tuple. We can only do square pooling windows.
+        if the stride is none, it is taken to be the same as the pool size.
+        borders are never ignored.
+        """
+        
+        self.pool_size = pool_size
+        self.stride = stride if stride is None else pool_size
+        self.input_layer = input_layer
+        self.params = []
+        self.bias_params = []
+        self.mb_bias = self.input_layer.mb_size
+        
+        self.pool_op = MaxPool(ds = self.pool_size, stride = self.stride)
+        
   
