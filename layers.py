@@ -103,6 +103,12 @@ def gen_updates_sgd(loss, all_parameters, learning_rate):
     return updates
 
 
+def shared_single(dim = 2):
+    """
+    Shortcut to create an undefined single precision Theano shared variable
+    """
+    shp = tuple([1] * dim)
+    return theano.shared(np.zeros(shp, dtype = 'float32'))
 
 
 class InputLayer(object):
