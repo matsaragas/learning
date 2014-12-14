@@ -52,4 +52,15 @@ class CudaConvnetConv2DLayer(object):
      self.filter_shape = (self.input_shape[0], filter_size, filter_size, n_filters)
      
      self.W = layers.shared_single(4)
+     
+     if self.untie_biases:
+        self.b = layers.shared_single(3)
+     else:
+        self.b = layers.shared_single(1)
+        
+     self.params = [self.W, self.b]
+     self.bias_params = [self.b]
+     self.reset_params()
+     
+     self.filter_acts_op = FilterActs(stride = self.stride, partial_sum = self.partial_sum, pad = self.pad)
   
