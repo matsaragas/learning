@@ -119,5 +119,103 @@ class CudaConvnetPooling2DLayer(objects):
         self.mb_bias = self.input_layer.mb_size
         
         self.pool_op = MaxPool(ds = self.pool_size, stride = self.stride)
+    
+    def get_output_shape(self):
+        input_shape = self.input_layer.get_output_shape()
+        w, h = input_shape[1], input_shape[2]
+        
+        new_w = int(np.ceil(float(w - self.pool_size + self.stride) / self.stride))
+        new_h = int(np.ceil(float(h - self.pool_size + self.stride)/ self.stride))
+        
+        return (input_shape[0], new_w, new_h, input_shape[3])
+        
+    def output(self, *args, **kwargs):
+        input = self.input_layer.output(*args, **kwargs)
+        contiguous_input = gpu_contiguous(input)
+        return self.pool_op(contiguous_input)
+        
+        
+class CudaConvnetStochasticPooling2DLayer(object):
+    
+    def __init__(self, input_layer, pool_size, stride = None):
+        """
+        This implements stochastic pooling as in Zeiler et al. 2013 to replace max pooling.
+        Pooling is stochastic by default. When dropout_active=True, weighted pooling is used
+        instead. As a result it is not possible to enable/disable stochastic pooling and
+        dropout separately within a network, but the use cases for that should be rare.
+        Usually we want both on during training, and both off at test time.
+        pool_size is an INTEGER, not a tuple. We can only do square pooling windows.
+        
+        if the stride is none, it is taken to be the same as the pool size.
+        borders are never ignored.
+        """
+        self.pool_size = pool_size
+        self.stride = stride if stride is not None else pool_size
+        self.input_layer = input_layer
+        self.params = []
+        self.bias_params = []
+        self.mb_size = self.input_layer.mb_size
+        self.stochastic_pool_op = StochasticMaxPool(ds = self.pool_size, stride = self.stride)
+        self.weighted_pool_op = WeightedMaxPool(ds = self.pool_size, stride = self.stride)
+        
+    def get_output_shape(self):
+        input_shape = self.input_layer.get_output_shape()
+        w, h = input_shape[1], input_shape[2]
+        new_w = int(np.ceil(float(w - self.pool_size + self.stride) / self.stride))
+        new_h = int(np.ceil(float(h - self.pool_size + self.stride) / self.stride))
+        
+        return (input_shape[0], new_w, new_h, input_shape[3])
+        
+    def output(self, dropout_active = True, *args, **kwargs):
+        input = self.input_layer.output(dropout_active = dropout_active, *args, **kwargs)
+        contiguous_input = gpu_contiguous(input)
+        
+        if dropout_active:
+            return self.stochastic_pool_op(contiguous_input)
+        else:
+            return self.weighted_pool_op(contiguous_input)
+            
+            
+            
+class ShuffleC01BToBC01Layer(object):
+    """
+    This layer dimshuffles 4D input for interoperability between C01B and BC01 ops.
+    C01B (cuda convnet) -> BC01 (theano)
+    """
+    
+    def __init__(self, input_layer):
+        self.input_layer = input_layer
+        self.params = []
+        self.bias_params = []
+        self.mb_size = self.input_layer.mb_size
+        
+    def get_output_shape(self):
+        input_shape = self.input_layer.get_output_shape()
+        return (input_shape[3], input_shape[0], input_shape[1], input_shape[2])
+        
+    def output(self, *args, **kwargs):
+        input = self.input_layer.output(*args, **kwargs)
+        return input.dimshuffle(3, 0, 1, 2)
+        
+class ShuffleBC01ToC01BLayer(object):
+    """
+    This layer dimshuffles 4D input for interoperability between C01B and BC01 ops.
+    BC01 (theano) -> C01B (cuda convnet)
+    """
+    
+    def __init__(self, input_layer):
+        self.input_layer = input_layer
+        self.params = []
+        self.bias_params = []
+        self.mb_size = self.input_layer.mb_size
+        
+    def get_output_shape(self):
+        input_shape = self.input_layer.get_output_shape()
+        return (input_shape[1], input_shape[2], input_shape[3], input_shape[0])
+        
+    def output(self, *args, **kwargs):
+        input = self.input_layer.output(*args, **kwargs)
+        return input.dimshuffle(1,2,3,0)
+
         
   
