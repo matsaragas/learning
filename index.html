@@ -47,12 +47,24 @@
     rks have shown great promise in solving many challenging 
     problems involving sequential time-series data such as action recognition [1,2], multilingual machine translation [3,4] and 
     multimodal translation between videos and sentences [5]. 
-<<<<<<< HEAD
 
     The structure of RNN is similar to that of a simple feed forward neural net, but differs in the architecture of how these neurons are connected to one another. RNNs allow connections among hidden units associated with a time delay. Through these connections the model can retain information about the past inputs, enabling it to discover temporal correlations between events that are possibly far away from each other in the data. RNNs are similar to the human brain, which is a large feedback network of connected neurons that somehow can learn to translate a lifelong sensory input stream into a sequence of useful motor outputs. \\ 
 
-    {\bf Comparisons with other models.}
-    Most traditional machine learning methods, however are much more limited than RNN. In particular, unlike popular artificial feedforward neural networks (FNN) and Support Vector Machines (SVM), RNN cannot only deal with stationary input and output patterns but also with pattern sequences of arbitrary length. In fact, while FNN and SVM have been extremely successful in restricted applications, they assume that all their inputs are stationary and independent of each other. In the real world this is unrealistic: normally past events influence future events. A temporary memory of things that happened a while ago may be essential for producing a useful output action later. RNN can implement arbitrary types of such short-term memories of internal states by means of their recurrent connections; FNN and SVM cannot. In fact RNN can implement real sequence-processing and sequence producing programs with loops and temporary variables, while FNN and SVM are limited to simple feedforard mappings from inputs to outputs. Therefore RNN can solve many tasks unsolvable by FNN and SVM. RNN are also more powerful than widely used probabilistic sequence processors such as Hidden Markov Models (HMM), which are unable to compactly encode complex memories of previous events.     
+    
+    Most traditional machine learning methods, however are much more limited than RNN. 
+    In particular, unlike popular artificial feedforward neural networks (FNN) and Support 
+    Vector Machines (SVM), RNN cannot only deal with stationary input and output patterns but 
+    also with pattern sequences of arbitrary length. In fact, while FNN and SVM have been 
+    extremely successful in restricted applications, they assume that all their inputs are 
+    stationary and independent of each other. In the real world this is unrealistic: normally 
+    past events influence future events. A temporary memory of things that happened a while ago 
+    may be essential for producing a useful output action later. RNN can implement arbitrary 
+    types of such short-term memories of internal states by means of their recurrent connections; 
+    FNN and SVM cannot. In fact RNN can implement real sequence-processing and sequence producing 
+    programs with loops and temporary variables, while FNN and SVM are limited to simple 
+    feedforard mappings from inputs to outputs. Therefore RNN can solve many tasks unsolvable by 
+    FNN and SVM. RNN are also more powerful than widely used probabilistic sequence processors
+    such as Hidden Markov Models (HMM), which are unable to compactly encode complex memories of previous events.     
 
     Types of tasks for which RNNs can, in pronciple, be used:
 
@@ -77,9 +89,6 @@
     \item man-machine interfaces
     \end{itemize}
 
-
-
-=======
     
     <figure>
        <center><img src="images/rnn.jpg" alt="rnn unfold" width="504" height="228">
@@ -87,8 +96,6 @@
        </center>
     </figure>
     
-    
->>>>>>> 32f9815fa588249973a72fb84e5a390b229fb862
     $ \sum_{n=1}^{+\infty} \frac{1}{n^2} = \frac{\pi^2}{6} $
     
     \section{References}
