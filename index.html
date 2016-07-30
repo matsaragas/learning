@@ -91,6 +91,19 @@
 
     \section{Training RNN}
     
+    In the forward pass of the RNN we have:
+    
+    \begin{equation}
+    s_{t} = tanh(bf W_{rec} s_{t-1} + Ux_{t})
+    \end{equation}
+    
+    For the prediction of each output in the sequence we have:
+    
+    \begin{equation}
+    p({\hat y}_{t} = y_{j} | s_{t} = softmax(s_{t} V) = \frac{e^{s_{t}v_{j}}}{\sum_{k=1}^{K} s_{t} v_{k}},
+    \end{equation}
+    
+    where $j = 1, \hdot, K$. $K$ is the number of possible outputs that the ${\hat y}_{t}$ can take.
     
 
     
