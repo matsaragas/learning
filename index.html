@@ -48,8 +48,27 @@
     problems involving sequential time-series data such as action recognition [1,2], multilingual machine translation [3,4] and 
     multimodal translation between videos and sentences [5]. 
 
-    The structure of RNN is similar to that of a simple feed forward neural net, but differs in the architecture of how these neurons are connected to one another. RNNs allow connections among hidden units associated with a time delay. Through these connections the model can retain information about the past inputs, enabling it to discover temporal correlations between events that are possibly far away from each other in the data. RNNs are similar to the human brain, which is a large feedback network of connected neurons that somehow can learn to translate a lifelong sensory input stream into a sequence of useful motor outputs. \\ 
+    The structure of RNN is similar to that of a simple feed forward neural net, but differs in the 
+    architecture of how these neurons are connected to one another. RNNs allow connections among hidden
+    units associated with a time delay. Through these connections the model can retain information about
+    the past inputs, enabling it to discover temporal correlations between events that are possibly far away
+    from each other in the data. RNNs are similar to the human brain, which is a large feedback network
+    of connected neurons that somehow can learn to translate a lifelong sensory input stream into a 
+    sequence of useful motor outputs.\\
+    
+    
+    Ordinary RNN typically have two types of memory that heve very different time scales, very different 
+    capacities and very different computational roles. The history of the sequence currently being 
+    processed is stored in the hidden activity vector, which acts as a short-term memory that is 
+    updated at every time step. The capacity of this memory is $O(H)$ where $H$ is the number of hidden 
+    units. Long-term memory about how to convert the current input and hidden vectors into the next hidden 
+    vector and a predicted output vector is stores in the weight matrices connecting the hidden units to themselves 
+    and to the inputs and outputs. These matrices are typically updated at the end of a sequence and their 
+    capacity is $O(H^{2}) + O(IH) + O(HO)$ where $I$ and $O$ are the numbers of inputs and output units.
 
+    
+    
+    
     
     Most traditional machine learning methods, however are much more limited than RNN. 
     In particular, unlike popular artificial feedforward neural networks (FNN) and Support 
@@ -114,6 +133,15 @@
     </figure>
     
 
+    \section{RNN Architectures}
+    
+    \subsection{Using Fast Weights to Attend to the Recent Past}
+       
+    
+    
+    
+    
+    
     
     \section{References}
     
@@ -128,7 +156,8 @@
      translate. arXiv preprint arXiv:1409.0473, 2014.
      \item S. Venugopalan,  H. Xu, J. Donahue,  M. Rohrbach, R. Mooney, and K. Saenko. Translating videos to natural 
      language using deep recurrent neural networks. arXiv preprint arXiv:1412.4729, 2014.
-    \end{enumerate}
+     \item J.Ba and G.Hinton and V. mnih an Joel Z.Leibo and C. Ionescu. Using Fast Weights to Attend to the Recent Past.
+     \end{enumerate}
 
     \end{document}
   </div>
