@@ -7,7 +7,7 @@ and explore/experiment with pytorch concepts
 
 What is the main Difference between Pytorch and TensorFlow
 
-What is PyTorch?
+**What is PyTorch?**
 
 From the definition as per the official website, PyTorch is an open-source machine learning
 framework that accelerates the path from research prototyping to production deployment. 
@@ -17,7 +17,7 @@ deploying neural networks.
 The PyTorch framework runs on Python and is based on the Torch library 
 (Lua-based deep learning framework). 
 
-What is TensorFlow?
+**What is TensorFlow?**
 
 As per the definition from the official website, TensorFlow
 is an end-to-end open-source platform for machine learning.
@@ -37,8 +37,8 @@ networks, you can look at how the data flows through the
 neural network. 
 
 
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+| Parameters           |           TensorFlow            |                                                                   Pytorch |
+|----------------------|:-------------------------------:|--------------------------------------------------------------------------:|
+| Programming Language | Written in Python, C++ and CUDA |       Written in Python, C++, CUDA and is based on Torch (written in Lua) |
+| col 2 is             |            centered             |                                                                       $12 |
+| zebra stripes        |            are neat             |                                                                        $1 |
