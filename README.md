@@ -1,9 +1,6 @@
 learning
 ========
 
-deep tricks
+ML Framework Learning/Practising
 
-Hi,
-
-I started to play around with github and I want to make some tricks
- Here I will create the layers
+Project and concepts on Pytorch so I can stay up to date with the recent developments in the area.
