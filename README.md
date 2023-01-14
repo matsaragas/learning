@@ -35,3 +35,10 @@ graph edges represent the multidimensional data arrays
 (tensors) that flow between them. As you build these neural
 networks, you can look at how the data flows through the 
 neural network. 
+
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
