@@ -16,3 +16,22 @@ deploying neural networks.
 
 The PyTorch framework runs on Python and is based on the Torch library 
 (Lua-based deep learning framework). 
+
+What is TensorFlow?
+
+As per the definition from the official website, TensorFlow
+is an end-to-end open-source platform for machine learning.
+It has a comprehensive, flexible ecosystem of tools, 
+libraries and community resources that lets researchers 
+push the state-of-the-art in ML and developers easily 
+build and deploy ML-powered applications. TensorFlow is by 
+far one of the most popular deep learning frameworks. 
+It is developed by Google Brain and supports languages like
+Python, C++ and R.
+
+TensorFlow uses dataflow graphs to process data. Nodes in 
+the graph represent mathematical operations, while the 
+graph edges represent the multidimensional data arrays 
+(tensors) that flow between them. As you build these neural
+networks, you can look at how the data flows through the 
+neural network. 
