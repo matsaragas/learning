@@ -37,8 +37,8 @@ networks, you can look at how the data flows through the
 neural network. 
 
 
-| Parameters           |           TensorFlow            |                                                                   Pytorch |
-|----------------------|:-------------------------------:|--------------------------------------------------------------------------:|
-| Programming Language | Written in Python, C++ and CUDA |       Written in Python, C++, CUDA and is based on Torch (written in Lua) |
-| col 2 is             |            centered             |                                                                       $12 |
-| zebra stripes        |            are neat             |                                                                        $1 |
+| Parameters     |           TensorFlow            |                                                             Pytorch |
+|----------------|:-------------------------------:|--------------------------------------------------------------------:|
+| Programming Language | Written in Python, C++ and CUDA | Written in Python, C++, CUDA and is based on Torch (written in Lua) |
+| Developer       |             Google              |                                                            Facebook |
+| Graphs        |            TensorFlow 2.0 with Keras integrated also supports dynamic graphs              |                                                                 Dynamic |
